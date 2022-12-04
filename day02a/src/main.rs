@@ -9,6 +9,7 @@ fn main() {
                 game.chars().nth(2).unwrap() as i16 - b'X' as i16,
             )
         })
+        // rem_euclid for remainder (always positive) operation and not modulo
         .map(|(a, b)| b + 1 + 3 * ((1 + b - a).rem_euclid(3)))
         .sum::<i16>();
 

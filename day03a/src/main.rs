@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 fn main() {
     let input = include_bytes!("../input.txt");
 
@@ -22,10 +20,9 @@ fn main() {
                         (c1 - b'A') as i16 + 27
                     }
                 })
-                // count multiple mentions just once
-                .unique()
-                // sum over all items that are in left and right compartment
-                .sum::<i16>()
+                // shouly only be one value anyway
+                .next()
+                .unwrap_or_default()
         })
         // sum over all rucksacks
         .sum::<i16>();

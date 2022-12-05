@@ -33,6 +33,7 @@ fn main() {
     });
 
     // go through procedure vector and switch crates
+    // only pop off one crate at once and push it to the new stack
     procedure.iter().for_each(|p| {
         for _ in 0..(*p).0 {
             let c = stacks[(*p).1 - 1].pop().unwrap();

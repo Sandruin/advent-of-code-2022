@@ -10,28 +10,29 @@ fn main() {
     // could be made faster by not storing procedure and directly executing it, but this is logically cleaner
     let mut procedure: Vec<(usize, usize, usize)> = Default::default();
 
+    // capture starting position in stacks as vectors for each crate stack
     starting_stacks.lines().rev().skip(2).for_each(|line| {
         line.chars()
             .skip(1)
             .step_by(4)
             .enumerate()
-            // .inspect(|f| println!("{}", f))
             .filter(|(_, c)| *c != ' ')
             .for_each(|(i, c)| stacks[i].push(c));
     });
 
+    // capture move order in procedure as tuple (how many, from, to)
     procedure_text.lines().for_each(|line| {
         procedure.push(
             line.split(' ')
                 .skip(1)
                 .step_by(2)
                 .map(|s| s.parse::<usize>().unwrap())
-                // .inspect(|f| println!("{}", f))
                 .collect_tuple()
                 .unwrap(),
         );
     });
 
+    // go through procedure vector and switch crates
     procedure.iter().for_each(|p| {
         for _ in 0..(*p).0 {
             let c = stacks[(*p).1 - 1].pop().unwrap();
@@ -39,6 +40,7 @@ fn main() {
         }
     });
 
+    // get top-most elements of all stacks and combine them to a string
     let output: String = stacks.iter().map(|i| i.iter().last().unwrap()).collect();
 
     println!("{:?}", output);
